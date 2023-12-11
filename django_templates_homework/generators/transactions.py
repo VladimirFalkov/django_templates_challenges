@@ -19,7 +19,8 @@ def _generate_transaction() -> BankTransaction:
         amount=decimal.Decimal(random.randint(1, 100)),
         currency=str(random.choice(list(Currency))).split(".")[1],
         submitted_at=(
-            datetime.datetime(2023, 1, 1) + datetime.timedelta(seconds=random.randint(0, 365 * 24 * 60 * 60))
+            datetime.datetime(2023, 1, 1)
+            + datetime.timedelta(seconds=random.randint(0, 365 * 24 * 60 * 60))
         ),
         receiver_id=uuid.uuid4(),
         is_validated_by_receiver=is_validated_by_receiver,

@@ -14,4 +14,6 @@ def tasks_board_view(request: HttpRequest) -> HttpResponse:
         {"title": "Застелить кровать", "status": "in_progress"},
         {"title": "Купить продуктов", "status": "todo"},
     ]
-    return render(request, 'level_2/tasks_board.html', context={"tasks": tasks})
+    return render(
+        request, "level_2/tasks_board.html", context={"tasks": tasks}
+    )
