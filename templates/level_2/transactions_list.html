@@ -1,48 +1,55 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <style>
-      .dangerous {
-        background-color: lightpink;
-      }
-    </style>
-    <title>Transactions</title>
-  </head>
-  <body>
-    <main class="container">
-      <article>
-        <h2>{{ transactions | length }} transactions to review</h2>
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Submit datetime</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Receiver id</th>
-              <th scope="col">Not fraud</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for transaction in transactions %}
-              <tr>
-                  <th style="font-size: x-small">{{ transaction.id }}</th>
-                  <td>{{ transaction.submit_datetime }}</td>
-                  <td>{{ transaction.amount }} {{ transaction.currency }}</td>
-                  <td style="font-size: x-small">{{ transaction.receiver_id }}</td>
-                  
-                  {% if transaction.is_validated_by_receiver %}
-                    <td>✅</td>
-                  {% else %}
-                    <td>❌</td>
-                  {% endif %}
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </article>
-    </main>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <style>
+    .dangerous {
+      background-color: lightpink;
+    }
+  </style>
+  <title>Transactions</title>
+</head>
+
+<body>
+  <main class="container">
+    <article>
+      <h2>{{ transactions | length }} transactions to review</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Submit datetime</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Receiver id</th>
+            <th scope="col">Not fraud</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for transaction in transactions %}
+          {% if transaction.can_be_fraud %}
+          <tr class="dangerous">
+            {% else %}
+          <tr>
+            {% endif %}
+            <th style="font-size: x-small">{{ transaction.id }}</th>
+            <td>{{ transaction.submit_datetime }}</td>
+            <td>{{ transaction.amount }} {{ transaction.currency }}</td>
+            <td style="font-size: x-small">{{ transaction.receiver_id }}</td>
+
+            {% if transaction.is_validated_by_receiver %}
+            <td>✅</td>
+            {% else %}
+            <td>❌</td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </article>
+  </main>
+</body>
+
 </html>
