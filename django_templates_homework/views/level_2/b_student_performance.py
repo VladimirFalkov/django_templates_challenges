@@ -14,4 +14,4 @@ def students_performance_view(request: HttpRequest) -> HttpResponse:
         {"student_name": "Teresa Monger", "week1_completed": False, "week2_completed": False, "week3_completed": True},
         {"student_name": "Doris Dayton", "week1_completed": True, "week2_completed": False, "week3_completed": False},
     ]
-    return render(request, 'level_2/students_performance.html', context={"performances": performances})
+    return render(request, "level_2/students_performance.html", context={"performances": performances})

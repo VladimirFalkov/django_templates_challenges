@@ -14,11 +14,10 @@ def generate_fake_transactions(num: int) -> list[BankTransaction]:
 def _generate_transaction() -> BankTransaction:
     is_validated_by_receiver = random.random() < 0.7
     can_be_fraud = False if is_validated_by_receiver else random.random() < 0.2
-
     return BankTransaction(
         id=uuid.uuid4(),
         amount=decimal.Decimal(random.randint(1, 100)),
-        currency=random.choice(list(Currency)),
+        currency=str(random.choice(list(Currency))).split(".")[1],
         submitted_at=(
             datetime.datetime(2023, 1, 1)
             + datetime.timedelta(seconds=random.randint(0, 365 * 24 * 60 * 60))
